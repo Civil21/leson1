@@ -1,0 +1,7 @@
+<li>
+  <b>
+    <%= link_to post.title, post_path(post) %>
+  </b>
+  <%= link_to "edit", edit_post_path(post)%>
+  <%= link_to "delete", post_path(post), method: :delete%>
+</li>
