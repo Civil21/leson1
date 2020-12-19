@@ -3,7 +3,18 @@
   <%= @post.title%>
   <%= link_to "edit", edit_post_path(@post)%>
 </h1>
+<%= image_tag @post.photo, width:500, height:300 %>
 <p>
 <%= @post.body%>
 </p>
+<div id="images">
+  <% @post.images.each do |image|%>
+    <%= image_tag image,height:300%>
+  <%end%>
+</div>
+<div id="comments">
+  <%= render "comments/form"%>
+  Коментарі:
+  <%=render @comments %>
+</div>
 </div>

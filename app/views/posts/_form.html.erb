@@ -1,12 +1,25 @@
 <div class="">
   <b>
-    <%= f.label :title %>
+    <%= f.label :title, class:"form-label" %>
   </b>
-  <%= f.text_field :title %>
+  <%= f.text_field :title, class:"form-control" %>
 </div>
 <div class="">
 <b>
-  <%= f.label :body %>
+  <%= f.label :body, class:"form-label" %>
 </b>
-  <%= f.text_area :body %>
+  <%= f.text_area :body, class:"form-control" %>
+</div>
+
+<div class="">
+  <b>
+    <%= f.label :image, class:"form-label" %>
+  </b>
+    <%=f.file_field :image, class:"form-control"%>
+</div>
+<div class="">
+  <b>
+    <%= f.label :images, class:"form-label" %>
+  </b>
+    <%=f.file_field :images,multiple: true, class:"form-control"%>
 </div>
