@@ -1,7 +1,10 @@
 <div class="">
 <h1>
   <%= @post.title%>
-  <%= link_to "edit", edit_post_path(@post)%>
+  <%= link_to "edit", edit_post_path(@post)  if @post.user_id == current_user.id%>
+<span>
+   Автор: <%=@post.user.email%>
+ </span>
 </h1>
 <%= image_tag @post.photo, width:500, height:300 %>
 <p>
@@ -12,8 +15,8 @@
     <%= image_tag image,height:300%>
   <%end%>
 </div>
-<div id="comments">
-  <%= render "comments/form"%>
+<div id="comments" class="ps-2">
+  <%= render "comments/form",url: post_comments_path(@post)%>
   Коментарі:
   <%=render @comments %>
 </div>

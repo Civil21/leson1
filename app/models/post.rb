@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   has_many_attached :images
 
   has_many :comments
+  belongs_to :user
 
   # зв'язки
   # один
@@ -20,11 +21,14 @@ class Post < ApplicationRecord
   #
   # https://guides.rubyonrails.org/association_basics.html
   # belongs_to - строгий одинарний
+  # belongs_to, optional: true, не строгий одинарний
   # has_one - не строгий одинарний
   # has_one :trought
   # has_many - не строгий багато
   # has_many :trought
   # has_and_belongs_to_many - строгий багато
+
+  # Поліморфізм
 
   def photo
     if image.attached?

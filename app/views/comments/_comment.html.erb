@@ -1,7 +1,13 @@
 <div id="comment_<%=comment.id%>">
   <p><%= comment.text%></p>
   <span>
-    <%= comment.user_name%>
+    <%= comment.user.email%><%= link_to "delete", comment_path(comment),method: :delete,class:"btn btn-danger" if comment.user_id == current_user.id%>
   </span>
   <%= comment.created_at%>
+  <div class="ps-4">
+
+  <%= render "comments/form", url:comment_comments_path(comment)%>
+  Коментарі:
+  <%=render comment.comments %>
+</div>
 </div>
