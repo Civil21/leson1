@@ -6,7 +6,7 @@
   <%= comment.created_at%>
   <div class="ps-4">
 
-  <%= render "comments/form", url:comment_comments_path(comment)%>
+  <%= render "comments/form", object: comment%>
   Коментарі:
   <%=render comment.comments %>
 </div>

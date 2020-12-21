@@ -16,7 +16,7 @@
   <%end%>
 </div>
 <div id="comments" class="ps-2">
-  <%= render "comments/form",url: post_comments_path(@post)%>
+  <%= render "comments/form", object: @post%>
   Коментарі:
   <%=render @comments %>
 </div>

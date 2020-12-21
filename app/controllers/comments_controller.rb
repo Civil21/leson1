@@ -3,19 +3,12 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :user_comment, only: [:destroy]
+
   def create
     params[:comment][:user_id] = current_user.id
-    comment = post.comments.build(comment_params)
-    if comment.save
-      redirect_to post_path(comment.post_id) + '#comment_' + comment.id.to_s
-    else
-      pp 'error'
-    end
-  end
-
-  def comment_create
-    params[:comment][:user_id] = current_user.id
-    @comment = comment.comments.build(comment_params)
+    params[:comment][:object_type] = params[:object_type]
+    params[:comment][:object_id] = params[:object_id]
+    comment = Comment.new(comment_params)
     if comment.save
       redirect_back(fallback_location: root_path)
     else
@@ -34,12 +27,8 @@ class CommentsController < ApplicationController
 
   private
 
-  def post
-    @post = Post.find(params[:post_id])
-  end
-
-  def comment
-    @comment ||= Comment.find(params[:comment_id])
+  def object
+    # @object ||= params[:type].constan
   end
 
   def user_comment
@@ -47,6 +36,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:text, :post_id, :user_id, :comment_id)
+    params.require(:comment).permit(:text, :object_type, :object_id, :user_id)
   end
 end
