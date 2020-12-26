@@ -7,10 +7,11 @@ class PostsController < ApplicationController
   # before_action :post
 
   def index
-    @posts = Post.all
+    @posts = Post.all.includes(likes: :user).with_attached_image
   end
 
   def show
+    post.new_view
     @comments = post.comments
   end
 
@@ -19,7 +20,9 @@ class PostsController < ApplicationController
   end
 
   def create
+    category = Category.find_or_create_by(name: params[:post][:category])
     @post = current_user.posts.build(post_params)
+    @post.category = category
     if post.save
       redirect_to post
     else
@@ -30,13 +33,31 @@ class PostsController < ApplicationController
   def edit; end
 
   def update
+    # category = Category.find_or_create(name: params[:post][:category])
+    # @post.category = category
     post.update(post_params)
     redirect_to post
   end
 
-  def destroy
+  def destredirect_back(fallback_location: root_path)
     post.destroy
     redirect_to posts_path
+  end
+
+  def like
+    if like = Like.find_by(user_id: current_user.id, post_id: post.id)
+      like.destroy
+      redirect_back(fallback_location: post)
+    else
+      # like = Like.find_or_create(user_id: current_user.id, post_id: post.id)
+      like = post.likes.build(user_id: current_user.id)
+      if like.save
+        redirect_back(fallback_location: post)
+      else
+        redirect_back(fallback_location: post)
+      end
+
+    end
   end
 
   private
@@ -50,6 +71,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:user_id, :title, :body, :image, images: [])
+    params.require(:post).permit(:user_id, :title, :body, :image, :category_id, images: [])
   end
 end

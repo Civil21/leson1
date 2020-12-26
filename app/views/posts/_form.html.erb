@@ -11,6 +11,20 @@
   <%= f.text_area :body, class:"form-control" %>
 </div>
 
+<!-- <div class="">
+  <b>
+    <%= f.label :category, class:"form-label" %>
+  </b>
+    <%=f.select :category_id, Category.all.collect{|category| [category.name,category.id]}, class:"form-control"%>
+</div> -->
+
+<div class="">
+  <b>
+    <%= f.label :category, class:"form-label" %>
+  </b>
+  <%= f.text_field :category, class:"form-control" %>
+</div>
+
 <div class="">
   <b>
     <%= f.label :image, class:"form-label" %>

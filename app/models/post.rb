@@ -6,6 +6,9 @@ class Post < ApplicationRecord
 
   has_many :comments, as: :object
   belongs_to :user
+  belongs_to :category
+
+  has_many :likes
 
   # зв'язки
   # один
@@ -29,6 +32,10 @@ class Post < ApplicationRecord
   # has_and_belongs_to_many - строгий багато
 
   # Поліморфізм
+
+  def new_view
+    update(view_count: (view_count || 0) + 1)
+  end
 
   def photo
     if image.attached?

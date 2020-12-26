@@ -5,12 +5,22 @@ Rails.application.routes.draw do
 
   root to: 'pages#index'
 
-  resources :posts
+  resources :posts do
+    member do
+      post 'like'
+    end
+    # collection do
+    #
+    # end
+  end
 
   resources :comments, only: [:destroy]
-
   post ':object_type/:object_id/comments', to: 'comments#create', as: 'comments'
   # resources :comments, only: [:create]
+
+  resources :users, only: [:show]
+
+  resources :categories, only: %i[show index]
 
   # створити
   # оновити

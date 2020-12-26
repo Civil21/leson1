@@ -3,9 +3,20 @@
   <b>
     <%= link_to post.title, post_path(post) %>
   </b>
-
-  <% if user_signed_in? && post.user_id == current_user.id %>
-  <%= link_to "edit", edit_post_path(post) %>
-  <%= link_to "delete", post_path(post), method: :delete%>
+  view:
+  <%= post.view_count%><br/>
+  likes:
+  <%= post.likes.count%>
+  <% if  user_signed_in?%>
+    <% if post.likes.find_by_user_id(current_user.id) %>
+      <%= link_to "Deslike",like_post_path(post),method: :post, class:"btn btn-warning"%>
+    <%else%>
+      <%= link_to "Like",like_post_path(post),method: :post, class:"btn btn-success"%>
+    <%end%>
+    <% if post.user_id == current_user.id %>
+      <%= link_to "edit", edit_post_path(post) %>
+      <%= link_to "delete", post_path(post), method: :delete%>
+    <%end%>
   <%end%>
+  <%= link_to  post.category.name, category_path(post.category)%>
 </div>
