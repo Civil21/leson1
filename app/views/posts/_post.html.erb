@@ -1,4 +1,4 @@
-<div class="col-6">
+<div class="col-6 post">
   <%= image_tag post.photo, width:300, height:300 %>
   <b>
     <%= link_to post.title, post_path(post) %>
@@ -6,17 +6,17 @@
   view:
   <%= post.view_count%><br/>
   likes:
-  <%= post.likes.count%>
-  <% if  user_signed_in?%>
-    <% if post.likes.find_by_user_id(current_user.id) %>
-      <%= link_to "Deslike",like_post_path(post),method: :post, class:"btn btn-warning"%>
-    <%else%>
-      <%= link_to "Like",like_post_path(post),method: :post, class:"btn btn-success"%>
-    <%end%>
-    <% if post.user_id == current_user.id %>
-      <%= link_to "edit", edit_post_path(post) %>
-      <%= link_to "delete", post_path(post), method: :delete%>
-    <%end%>
+  <span class="likes">
+    <%= post.likes.size%>
+  </span>
+
+  <button type="button" name="button" onclick="like(this,<%=post.id%>)" class="like-button">
+    <%= post.likes.find_by_user_id(current_user.id) ? "DesLike" : "Like" %>
+  </button>
+
+  <% if post.user_id == current_user.id %>
+    <%= link_to "edit", edit_post_path(post) %>
+    <%= link_to "delete", post_path(post), method: :delete%>
   <%end%>
-  <%= link_to  post.category.name, category_path(post.category)%>
+<%= link_to post.category.name, category_path(post.category)%>
 </div>

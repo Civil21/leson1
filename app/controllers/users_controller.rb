@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts
+    @posts = @user.posts.with_attached_image
     @comments = @user.comments
-    @likes = @posts.map { |post| post.likes.count }.sum
+    @likes = @posts.map { |post| post.likes.size }.sum
   end
 end

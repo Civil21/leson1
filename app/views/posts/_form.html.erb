@@ -1,39 +1,11 @@
-<div class="">
-  <b>
-    <%= f.label :title, class:"form-label" %>
-  </b>
-  <%= f.text_field :title, class:"form-control" %>
-</div>
-<div class="">
-<b>
-  <%= f.label :body, class:"form-label" %>
-</b>
-  <%= f.text_area :body, class:"form-control" %>
-</div>
+<%=f.input :title%>
+<%=f.input :body, as: :text%>
 
-<!-- <div class="">
-  <b>
-    <%= f.label :category, class:"form-label" %>
-  </b>
-    <%=f.select :category_id, Category.all.collect{|category| [category.name,category.id]}, class:"form-control"%>
-</div> -->
+<%=f.input :category_id, collection: Category.all%>
+<%=f.association :category%>
 
-<div class="">
-  <b>
-    <%= f.label :category, class:"form-label" %>
-  </b>
-  <%= f.text_field :category, class:"form-control" %>
-</div>
+<%= f.input :category %>
 
-<div class="">
-  <b>
-    <%= f.label :image, class:"form-label" %>
-  </b>
-    <%=f.file_field :image, class:"form-control"%>
-</div>
-<div class="">
-  <b>
-    <%= f.label :images, class:"form-label" %>
-  </b>
-    <%=f.file_field :images,multiple: true, class:"form-control"%>
-</div>
+<%=f.input :image, as: :file%>
+
+<%=f.input :images, as: :file, input_html:{multiple: true}%>

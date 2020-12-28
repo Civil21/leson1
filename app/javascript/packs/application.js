@@ -15,3 +15,8 @@ ActiveStorage.start()
 import "bootstrap"
 
 import "../stylesheets/application";
+
+
+import {like} from "./posts"
+
+window.like = like

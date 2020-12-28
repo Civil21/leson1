@@ -47,16 +47,21 @@ class PostsController < ApplicationController
   def like
     if like = Like.find_by(user_id: current_user.id, post_id: post.id)
       like.destroy
-      redirect_back(fallback_location: post)
+      respond_to do |format|
+        format.json { render json: { count: post.likes.count, like: true } }
+      end
     else
       # like = Like.find_or_create(user_id: current_user.id, post_id: post.id)
       like = post.likes.build(user_id: current_user.id)
       if like.save
-        redirect_back(fallback_location: post)
+        respond_to do |format|
+          format.json { render json: { count: post.likes.size, like: false } }
+        end
       else
-        redirect_back(fallback_location: post)
+        respond_to do |format|
+          format.json { render json: { error: 'not save' } }
+        end
       end
-
     end
   end
 
